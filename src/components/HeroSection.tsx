@@ -4,6 +4,7 @@ import { Link } from "react-scroll";
 import { useState, useEffect } from "react";
 import atlastLogo from "@/assets/atlast-logo.png";
 import heroBackground from "@/assets/hero-background.jpg";
+import ThemeToggle from "./ThemeToggle";
 
 const HeroSection = () => {
   const [currentWord, setCurrentWord] = useState(0);
@@ -43,6 +44,7 @@ const HeroSection = () => {
             <Link to="how" smooth={true} duration={500} className="hover:text-primary transition-colors cursor-pointer">How</Link>
             <Link to="what" smooth={true} duration={500} className="hover:text-primary transition-colors cursor-pointer">Product</Link>
             <Link to="contact" smooth={true} duration={500} className="hover:text-primary transition-colors cursor-pointer">Let's Connect</Link>
+            <ThemeToggle />
           </div>
         </div>
       </nav>
