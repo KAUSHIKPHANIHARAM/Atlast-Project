@@ -2,7 +2,7 @@ import { Heart, Leaf, Zap } from "lucide-react";
 
 const WhySection = () => {
   return (
-    <section id="about" className="py-20 bg-gradient-dark">
+    <section id="why" className="py-20 bg-gradient-dark">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-5xl md:text-6xl font-bold mb-8 text-foreground">

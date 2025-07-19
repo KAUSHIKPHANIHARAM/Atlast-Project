@@ -2,7 +2,7 @@ import { Atom, Lightbulb, Rocket } from "lucide-react";
 
 const HowSection = () => {
   return (
-    <section id="spotlight" className="py-20 bg-background">
+    <section id="how" className="py-20 bg-background">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-5xl md:text-6xl font-bold mb-8 text-foreground">

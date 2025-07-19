@@ -1,29 +1,48 @@
 import { Button } from "@/components/ui/button";
 import { ChevronRight, Zap } from "lucide-react";
+import { Link } from "react-scroll";
+import { useState, useEffect } from "react";
+import atlastLogo from "@/assets/atlast-logo.png";
 import heroBackground from "@/assets/hero-background.jpg";
 
 const HeroSection = () => {
+  const [currentWord, setCurrentWord] = useState(0);
+  const words = ["Idea", "Step", "Atom", "Electron"];
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentWord((prev) => (prev + 1) % words.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${heroBackground})` }}
-      />
+      {/* Video Background */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+        poster={heroBackground}
+      >
+        <source src="/hero-video.mp4" type="video/mp4" />
+      </video>
       <div className="absolute inset-0 bg-gradient-to-b from-background/80 to-background/60" />
       
       {/* Navigation */}
       <nav className="absolute top-0 w-full z-20 p-6">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-2">
+            <img src={atlastLogo} alt="ATLAST" className="h-8 w-8" />
             <div className="text-2xl font-bold text-primary">ATLAST</div>
           </div>
           <div className="hidden md:flex items-center space-x-8 text-foreground">
-            <a href="#product" className="hover:text-primary transition-colors">Product</a>
-            <a href="#about" className="hover:text-primary transition-colors">About US</a>
-            <a href="#spotlight" className="hover:text-primary transition-colors">Spotlight</a>
-            <a href="#mvp" className="hover:text-primary transition-colors">MVP</a>
-            <a href="#contact" className="hover:text-primary transition-colors">Let's Connect</a>
+            <Link to="why" smooth={true} duration={500} className="hover:text-primary transition-colors cursor-pointer">About US</Link>
+            <Link to="how" smooth={true} duration={500} className="hover:text-primary transition-colors cursor-pointer">How</Link>
+            <Link to="what" smooth={true} duration={500} className="hover:text-primary transition-colors cursor-pointer">Product</Link>
+            <Link to="contact" smooth={true} duration={500} className="hover:text-primary transition-colors cursor-pointer">Let's Connect</Link>
           </div>
         </div>
       </nav>
@@ -35,7 +54,15 @@ const HeroSection = () => {
             Revolution starts{" "}
             <br />
             with{" "}
-            <span className="text-primary animate-glow-pulse">One</span>
+            <span className="text-primary relative">
+              One{" "}
+              <span 
+                key={currentWord}
+                className="absolute left-full ml-4 text-primary-glow animate-fade-in"
+              >
+                {words[currentWord]}
+              </span>
+            </span>
           </h1>
           
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-4xl mx-auto leading-relaxed">
@@ -44,22 +71,26 @@ const HeroSection = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button 
-              size="lg" 
-              className="bg-gradient-primary text-primary-foreground hover:shadow-glow transition-all duration-300 text-lg px-8 py-6"
-            >
-              Discover Our Vision
-              <ChevronRight className="ml-2 h-5 w-5" />
-            </Button>
+            <Link to="why" smooth={true} duration={500}>
+              <Button 
+                size="lg" 
+                className="bg-gradient-primary text-primary-foreground hover:shadow-glow transition-all duration-300 text-lg px-8 py-6"
+              >
+                Discover Our Vision
+                <ChevronRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
             
-            <Button 
-              variant="outline" 
-              size="lg"
-              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 text-lg px-8 py-6"
-            >
-              <Zap className="mr-2 h-5 w-5" />
-              See Innovation
-            </Button>
+            <Link to="what" smooth={true} duration={500}>
+              <Button 
+                variant="outline" 
+                size="lg"
+                className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 text-lg px-8 py-6"
+              >
+                <Zap className="mr-2 h-5 w-5" />
+                See Innovation
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
