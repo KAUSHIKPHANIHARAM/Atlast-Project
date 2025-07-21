@@ -1,4 +1,5 @@
 import { Battery, Gauge, MapPin, Timer } from "lucide-react";
+import Scooter from '../assets/Scooter.mp4'
 
 const WhatSection = () => {
   const specs = [
@@ -47,7 +48,7 @@ const WhatSection = () => {
         {/* Product Specifications Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {specs.map((spec, index) => (
-            <div 
+            <div
               key={spec.title}
               className="bg-gradient-card p-6 rounded-2xl border border-border shadow-card hover:shadow-glow transition-all duration-300 group animate-fade-in"
               style={{ animationDelay: `${index * 0.1}s` }}
@@ -58,33 +59,33 @@ const WhatSection = () => {
                   <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
                 </div>
               </div>
-              
+
               <h3 className="text-lg font-semibold text-foreground mb-2">{spec.title}</h3>
-              
+
               <div className="mb-3">
                 <span className="text-3xl font-bold text-primary">{spec.value}</span>
                 <span className="text-lg text-muted-foreground ml-1">{spec.unit}</span>
               </div>
-              
+
               <p className="text-sm text-muted-foreground">{spec.description}</p>
-              
+
               {/* Progress indicator */}
-              <div className="mt-4 w-full bg-muted rounded-full h-1">
+              {/* <div className="mt-4 w-full bg-muted rounded-full h-1">
                 <div 
                   className="bg-gradient-primary h-1 rounded-full transition-all duration-1000 group-hover:w-full"
                   style={{ width: `${(index + 1) * 20}%` }}
                 ></div>
-              </div>
+              </div> */}
             </div>
           ))}
         </div>
 
         {/* Key Features */}
-        <div className="bg-gradient-card p-8 rounded-3xl border border-border shadow-card">
+        {/* <div className="bg-gradient-card p-8 rounded-3xl border border-border shadow-card">
           <h3 className="text-2xl font-bold text-foreground mb-6 text-center">
             The Future of <span className="text-primary">Green Mobility</span>
           </h3>
-          
+
           <div className="grid md:grid-cols-2 gap-8">
             <div className="space-y-4">
               <h4 className="text-xl font-semibold text-primary">Revolutionary Technology</h4>
@@ -103,7 +104,7 @@ const WhatSection = () => {
                 </li>
               </ul>
             </div>
-            
+
             <div className="space-y-4">
               <h4 className="text-xl font-semibold text-primary">Smart Features</h4>
               <ul className="space-y-2 text-muted-foreground">
@@ -122,9 +123,26 @@ const WhatSection = () => {
               </ul>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
+      {/* <div className="flex justify-center mb-16">
+        <div className="relative w-full max-w-4xl">
+          <video
+            className="w-50 h-auto rounded-2xl shadow-glow border border-border"
+            autoPlay
+            muted
+            loop
+            playsInline
+          >
+            <source src={Scooter} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent rounded-2xl pointer-events-none"></div>
+        </div>
+      </div> */}
+      
     </section>
+     
   );
 };
 
