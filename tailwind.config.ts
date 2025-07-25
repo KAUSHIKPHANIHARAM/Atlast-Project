@@ -120,7 +120,8 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'fade-in': 'fade-in 0.6s ease-out',
 				'slide-in-right': 'slide-in-right 0.8s ease-out',
-				'glow-pulse': 'glow-pulse 2s ease-in-out infinite'
+				'glow-pulse': 'glow-pulse 2s ease-in-out infinite',
+				'scroll': 'scroll 30s linear infinite',
 			},
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',

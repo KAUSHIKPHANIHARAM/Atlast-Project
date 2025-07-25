@@ -5,6 +5,7 @@ import { Phone, Mail, Instagram, Linkedin, Send } from "lucide-react";
 import emailjs from '@emailjs/browser';
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
+import { Typewriter } from 'react-simple-typewriter';
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -24,21 +25,9 @@ const ContactSection = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // setIsSubmitting(true);
-
-    // Simulate form submission
-    // setTimeout(() => {
-    //   toast({
-    //     title: "Message Sent!",
-    //     description: "Thanks for reaching out. I'll get back to you soon.",
-    //   });
-    //   setFormData({ name: "", email: "", message: "" });
-    //   setIsSubmitting(false);
-    // }, 1500);
     const templateId = "template_89oei0f";
     const publicKey = "pS9kAiGT4N11LqL1q"
     const serviceId = "";
-
 
     const templateParams = {
       from_name: formData.name,
@@ -63,7 +52,7 @@ const ContactSection = () => {
       });
   };
   return (
-    <section id="contact" className="py-20 bg-background">
+    <section id="contact" className="py-20 bg-section-gradient">
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Contact Information */}
@@ -107,7 +96,7 @@ const ContactSection = () => {
                   <Instagram className="w-6 h-6 group-hover:scale-110 transition-transform" />
                 </a>
                 <a
-                  href="https://www.linkedin.com/company/atlast/"
+                  href="https://www.linkedin.com/company/atlast-official/"
                   className="w-12 h-12 bg-card border border-border rounded-xl flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all duration-300 group"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -119,11 +108,22 @@ const ContactSection = () => {
           </div>
 
           {/* Contact Form */}
-          <div className="bg-gradient-card p-8 rounded-3xl border border-border shadow-card animate-slide-in-right">
+          <div className="bg-gradient-card p-8 rounded-3xl border border-border shadow-card animate-slide-in-right text-center">
             <div className="mb-6">
-              <h3 className="text-2xl font-bold text-primary mb-2">ASK</h3>
+              <p className="text-sm text-foreground mb-1">Lets Connect</p>
+              <h3 className="text-5xl font-extrabold text-primary mb-2 tracking-wide">ASK</h3>
               <p className="text-lg text-foreground">
-                <span className="text-primary">Always</span> <span className="text-primary">Seek</span> knowledge
+                <span className="text-foreground">Always</span> <span className="text-primary">
+                  <Typewriter
+                    words={['Seek', 'Share']}
+                    loop={true}
+                    cursor
+                    cursorStyle="_"
+                    typeSpeed={150}
+                    deleteSpeed={100}
+                    delaySpeed={1000}
+                  />
+                </span> knowledge
               </p>
             </div>
 

@@ -4,10 +4,12 @@ import HowSection from "@/components/HowSection";
 import WhatSection from "@/components/WhatSection";
 import ContactSection from "@/components/ContactSection";
 import Spotlight from "@/components/Spotlight";
+import Navbar from "@/components/Navbar";
 
 const Index = () => {
   return (
     <div className="min-h-screen">
+      <Navbar></Navbar>
       <HeroSection />
       <WhySection />
       <HowSection />

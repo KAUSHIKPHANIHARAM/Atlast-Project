@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Atom, Lightbulb, Rocket } from "lucide-react";
 import { motion, useAnimation, useInView } from "framer-motion";
+import GlobalAnimatedBackground from "./GlobalAnimatedBackground";
 
 const HowSection = () => {
   const sectionRef = useRef(null);
@@ -38,7 +39,7 @@ const HowSection = () => {
       y: 0,
       scale: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         damping: 20,
         stiffness: 100,
         duration: 0.8,
@@ -55,7 +56,7 @@ const HowSection = () => {
       pathLength: 1,
       opacity: 1,
       transition: {
-        pathLength: { duration: 1.5, ease: "easeInOut" },
+        pathLength: { duration: 1.5 },
         opacity: { duration: 0.5 },
       },
     },
@@ -70,7 +71,7 @@ const HowSection = () => {
       scale: 1,
       opacity: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         damping: 15,
         stiffness: 200,
         delay: 1,
@@ -109,7 +110,7 @@ const HowSection = () => {
   ];
 
   return (
-    <section id="how" className="py-20 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 relative overflow-hidden">
+    <section id="how" className="py-20 bg-section-gradient relative overflow-hidden">
       {/* Animated Background */}
       <div className="absolute inset-0 opacity-30">
         <motion.div
@@ -138,6 +139,7 @@ const HowSection = () => {
           }}
         />
       </div>
+      
 
       <div className="max-w-6xl mx-auto px-6 relative z-10" ref={sectionRef}>
         <motion.div
@@ -207,7 +209,6 @@ const HowSection = () => {
                 initial="hidden"
                 animate={lineControls}
                 variants={lineVariants}
-                style={{ transition: { delay: 0.3 } }}
               />
               <motion.path
                 d="M300 250 L400 150"
@@ -218,7 +219,6 @@ const HowSection = () => {
                 initial="hidden"
                 animate={lineControls}
                 variants={lineVariants}
-                style={{ transition: { delay: 0.6 } }}
               />
               <motion.path
                 d="M500 250 L400 150"
@@ -229,7 +229,6 @@ const HowSection = () => {
                 initial="hidden"
                 animate={lineControls}
                 variants={lineVariants}
-                style={{ transition: { delay: 0.9 } }}
               />
 
               <defs>
@@ -289,7 +288,7 @@ const HowSection = () => {
               return (
                 <motion.div
                   key={pillar.title}
-                  className="group bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm p-8 rounded-3xl border border-slate-200/50 dark:border-slate-700/50 shadow-xl hover:shadow-2xl transition-all duration-500 relative overflow-hidden"
+                  className="group bg-white/5 dark:bg-slate-800/20 backdrop-blur-sm p-8 rounded-3xl border border-slate-200/10 dark:border-slate-700/20 shadow-xl hover:shadow-2xl transition-all duration-500 relative overflow-hidden"
                   variants={cardVariants}
                   whileHover={{
                     y: -8,
@@ -369,6 +368,7 @@ const HowSection = () => {
           </motion.div>
         </div>
       </div>
+
     </section>
   );
 };
