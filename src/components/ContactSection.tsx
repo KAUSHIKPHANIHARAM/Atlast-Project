@@ -110,7 +110,7 @@ const ContactSection = () => {
           {/* Contact Form */}
           <div className="bg-gradient-card p-8 rounded-3xl border border-border shadow-card animate-slide-in-right text-center">
             <div className="mb-6">
-              <p className="text-sm text-foreground mb-1">Lets Connect</p>
+              {/* <p className="text-sm text-foreground mb-1">Lets Connect</p> */}
               <h3 className="text-5xl font-extrabold text-primary mb-2 tracking-wide">ASK</h3>
               <p className="text-lg text-foreground">
                 <span className="text-foreground">Always</span> <span className="text-primary">

@@ -143,7 +143,7 @@ const HowSection = () => {
 
       <div className="max-w-6xl mx-auto px-6 relative z-10" ref={sectionRef}>
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-6"
           initial={{ opacity: 0, y: 30 }}
           animate={controls}
           variants={{

@@ -33,15 +33,15 @@ const HeroSection = () => {
 
       {/* Content */}
       {/* <div className="relative z-10 w-full max-w-4xl ml-4 sm:ml-8 px-4 sm:px-6 pt-20 sm:pt-16"> */}
-      <div className="relative z-10 w-full max-w-1xl ml-2 sm:ml-2 px-16 sm:px-1000 pt-20 sm:pt-40">
+      <div className="font-impact relative z-10 w-full max-w-1xl ml-2 sm:ml-2 px-16 sm:px-1000 pt-20 sm:pt-40">
         <div className="animate-fade-in">
           <h1 className="text-2xl xs:text-2xl sm:text-2xl md:text-2xl lg:text-7xl xl:text-7xl font-bold mb-4 sm:mb-4 leading-tight">
             Revolution starts{" "}
             <br className="hidden sm:block" />
             <span className="sm:hidden"> </span>
             with{" "}
+            <span className="underline">One</span><span>{" "}</span>
             <span className="text-primary relative inline-block">
-              <span className="underline">One{" "}</span>
               <Typewriter
                 words={['Idea', 'Step', 'Atom', 'Electron']}
                 loop={true}

@@ -1,6 +1,6 @@
 import type { Config } from "tailwindcss";
 
-export default {
+const config: Config = {
 	darkMode: ["class"],
 	content: [
 		"./pages/**/*.{ts,tsx}",
@@ -29,6 +29,7 @@ export default {
 					foreground: 'hsl(var(--primary-foreground))',
 					glow: 'hsl(var(--primary-glow))'
 				},
+
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
 					foreground: 'hsl(var(--secondary-foreground))'
@@ -64,6 +65,14 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				}
 			},
+			fontFamily: {
+				//sans: ['Montserrat', 'sans-serif'],
+				impact: ['ImpactCustom', 'sans-serif'],				 
+				//trajan: ['Cinzel', 'serif'],
+				//sans: ['Space Grotesk', 'sans-serif'],
+				//bree: ['Bree Serif', 'serif'],
+			},
+
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
@@ -136,3 +145,5 @@ export default {
 	},
 	plugins: [require("tailwindcss-animate")],
 } satisfies Config;
+
+export default config;

@@ -3,18 +3,62 @@ import { Link } from "react-scroll";
 import { Menu, X } from "lucide-react";
 import atlastLogo from "@/assets/atlast logo (png) (1).png";
 import ThemeToggle from "./ThemeToggle";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Moon, Sun } from "lucide-react";
+import clsx from "clsx";
 import GlobalAnimatedBackground from "./GlobalAnimatedBackground";
+import { useTheme } from "next-themes";
 
 const Navbar = () => {
+    const { theme, setTheme } = useTheme();
+
+    const [isVisible, setIsVisible] = useState(true);
+    const [lastScrollY, setLastScrollY] = useState(0);
+
+
+    const isDark = theme === "dark";
+    const [showNavbar, setShowNavbar] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+
+            if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                setIsVisible(false);
+            } else {
+                setIsVisible(true);
+            }
+
+            setLastScrollY(currentScrollY);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, [lastScrollY]);
+
+    // useEffect(() => {
+    //     const handleScroll = () => {
+    //         if (window.scrollY > 100) {
+    //             setShowNavbar(true);
+    //         } else {
+    //             setShowNavbar(false);
+    //         }
+    //     };
+
+    //     window.addEventListener("scroll", handleScroll);
+
+    //     return () => window.removeEventListener("scroll", handleScroll);
+    // }, []);
+
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const navigate = useNavigate();
 
     const navItems = [
-        { path: "/about", label: "About", type: "route" },
         { to: "product", label: "Product", type: "scroll" },
-        { to: "how", label: "How", type: "scroll" },
+        { path: "/about", label: "About", type: "route" },
         { to: "spotlight", label: "Spotlight", type: "scroll" },
+        { to: "how", label: "How", type: "scroll" },
         { to: "contact", label: "Let's Connect", type: "scroll" },
     ];
 
@@ -22,9 +66,14 @@ const Navbar = () => {
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
     return (
-        <nav className="fixed top-2 sm:top-4 left-1/2 transform -translate-x-1/2 w-[95%] sm:w-[90%] max-w-screen-xl z-50 px-3 sm:px-4 md:px-8 py-3 sm:py-4 bg-white/10 backdrop-blur-md rounded-xl sm:rounded-2xl border border-white/10 shadow-md">
+        <nav
+            className={clsx(
+                "fixed top-4 left-1/2 -translate-x-1/2 w-[95%] sm:w-[90%] max-w-screen-xl px-3 sm:px-4 md:px-8 py-3 sm:py-4 bg-white/10 backdrop-blur-md rounded-xl sm:rounded-2xl border border-white/10 shadow-md transition-transform duration-500 z-50",
+                isVisible ? "translate-y-0" : "-translate-y-full"
+            )}
+        >
+
             <div className="flex items-center justify-between w-full">
-                
                 {/* Logo + Name */}
                 <div className="flex items-center space-x-2 sm:space-x-3 cursor-pointer">
                     <Link
@@ -39,41 +88,82 @@ const Navbar = () => {
                             className="h-8 sm:h-10 w-auto object-contain"
                             style={{ maxWidth: "80px sm:120px" }}
                         />
-                        <span className="text-lg sm:text-xl md:text-2xl font-bold text-blue-500 tracking-wider">
+                        <span className="font-lovelo text-lg sm:text-xl md:text-2xl font-bold text-blue-500 tracking-wider">
                             ATLAST
                         </span>
                     </Link>
                 </div>
 
                 {/* Desktop Navigation */}
-                <div className="hidden lg:flex items-center space-x-6 xl:space-x-10 font-medium text-blue-400 text-sm xl:text-base">
-                    {navItems.map((item) =>
-                        item.type === "route" ? (
-                            <span
-                                key={item.path}
-                                onClick={() => navigate(item.path)}
-                                className="hover:text-primary transition-colors cursor-pointer whitespace-nowrap"
-                            >
-                                {item.label}
-                            </span>
-                        ) : (
-                            <Link
-                                key={item.to}
-                                to={item.to}
-                                smooth={true}
-                                duration={500}
-                                className="hover:text-primary transition-colors cursor-pointer whitespace-nowrap"
-                            >
-                                {item.label}
-                            </Link>
-                        )
-                    )}
-                    <ThemeToggle />
+                <div className="hidden lg:flex items-center space-x-6 xl:space-x-10 font-medium text-blue-400 text-lg xl:text-xl">
+                    {navItems.map((item) => (
+                        <Link
+                            key={item.to}
+                            to={item.to}
+                            smooth={true}
+                            duration={500}
+                            onClick={() => setIsMenuOpen(false)}
+                            className={clsx(
+                                "transition-colors cursor-pointer py-2 px-2",
+                                item.label === "Let's Connect"
+                                    ? "bg-blue-500 text-white rounded-md text-center"
+                                    : "hover:text-primary text-blue-400"
+                            )}
+                        >
+                            {item.label}
+                        </Link>
+                    ))}
+
+                    <div className="flex space-x-2">
+                        <button
+                            onClick={() => setTheme("light")}
+                            className={clsx(
+                                "p-2 rounded-md border transition-colors",
+                                theme === "light" ? "bg-blue-500 text-white" : "hover:bg-gray-200"
+                            )}
+                            aria-label="Light Mode"
+                        >
+                            <Sun className="w-5 h-5" />
+                        </button>
+                        <button
+                            onClick={() => setTheme("dark")}
+                            className={clsx(
+                                "p-2 rounded-md border transition-colors",
+                                theme === "dark" ? "bg-blue-500 text-white" : "hover:bg-gray-700"
+                            )}
+                            aria-label="Dark Mode"
+                        >
+                            <Moon className="w-5 h-5" />
+                        </button>
+                    </div>
+
                 </div>
 
                 {/* Mobile Menu Button & Theme Toggle */}
                 <div className="lg:hidden flex items-center space-x-2 sm:space-x-3">
-                    <ThemeToggle />
+                    <div className="flex space-x-2">
+                        <button
+                            onClick={() => setTheme("light")}
+                            className={clsx(
+                                "p-2 rounded-md border transition-colors",
+                                theme === "light" ? "bg-blue-500 text-white" : "hover:bg-gray-200"
+                            )}
+                            aria-label="Light Mode"
+                        >
+                            <Sun className="w-5 h-5" />
+                        </button>
+                        <button
+                            onClick={() => setTheme("dark")}
+                            className={clsx(
+                                "p-2 rounded-md border transition-colors",
+                                theme === "dark" ? "bg-blue-500 text-white" : "hover:bg-gray-700"
+                            )}
+                            aria-label="Dark Mode"
+                        >
+                            <Moon className="w-5 h-5" />
+                        </button>
+                    </div>
+
                     <button
                         onClick={toggleMenu}
                         className="p-2 text-blue-400 hover:text-primary transition-colors"

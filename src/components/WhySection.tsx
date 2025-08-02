@@ -1,12 +1,15 @@
-import { motion, useAnimation, useInView, Variants } from "framer-motion";
-import { Heart, Leaf, Zap } from "lucide-react";
+import { motion, useAnimation, useInView } from "framer-motion";
+import { Atom, Cpu, Droplets, Globe, Leaf, Shield, Wind, Zap } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import hydrogenBikeHero from "@/assets/hydrogenBikeHero.jpeg";
+import hydrogenEnergy from "@/assets/hydrogenEnergy.jpeg";
+import cleanFuture from "@/assets/cleanFuture.jpeg";
 
 const WhySection = () => {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
   const controls = useAnimation();
-  const [hoveredCard, setHoveredCard] = useState(null);
+  const [activeCard, setActiveCard] = useState<number | null>(null);
 
   useEffect(() => {
     if (isInView) {
@@ -14,243 +17,241 @@ const WhySection = () => {
     }
   }, [isInView, controls]);
 
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
-    },
-  };
-
-  const cardVariants: Variants = {
-    hidden: {
-      opacity: 0,
-      y: 60,
-      scale: 0.9,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        type: "spring",
-        damping: 20,
-        stiffness: 100,
-        duration: 0.8,
-      },
-    },
-  };
-
-  const missions = [
+  const whyPoints = [
     {
-      icon: Heart,
-      title: "Life First",
-      description: "Every innovation starts with respect for life and our planet's precious ecosystems.",
-      color: "from-red-500 to-pink-600",
-      bgColor: "from-red-500/10 to-pink-600/10"
-    },
-    {
-      icon: Leaf,
-      title: "Clean Future",
-      description: "Building sustainable mobility solutions that protect our environment for generations.",
-      color: "from-green-500 to-emerald-600",
-      bgColor: "from-green-500/10 to-emerald-600/10"
+      icon: Atom,
+      title: "Zero Emission Technology",
+      description: "Pure hydrogen fuel cells produce only water vapor, creating truly clean transportation with zero harmful emissions.",
+      image: hydrogenEnergy,
+      gradient: "from-primary/20 to-accent/20"
     },
     {
       icon: Zap,
-      title: "Smart Innovation",
-      description: "Pioneering technology that makes transportation more intelligent and efficient.",
-      color: "from-yellow-500 to-orange-600",
-      bgColor: "from-yellow-500/10 to-orange-600/10"
+      title: "Instant Power & Range",
+      description: "Experience 250 km range with lightning-fast 1.5-minute refueling. No more range anxiety or hours of charging.",
+      image: hydrogenBikeHero,
+      gradient: "from-accent/20 to-primary/20"
+    },
+    {
+      icon: Globe,
+      title: "Planetary Impact",
+      description: "Join the revolution that transforms urban mobility while preserving our planet for future generations.",
+      image: cleanFuture,
+      gradient: "from-primary/20 to-secondary/20"
+    },
+    {
+      icon: Shield,
+      title: "Future-Proof Investment",
+      description: "Hydrogen infrastructure is rapidly expanding globally. Be an early adopter of tomorrow's standard technology.",
+      image: hydrogenBikeHero,
+      gradient: "from-secondary/20 to-accent/20"
     }
   ];
 
+  const stats = [
+    { value: "0g", label: "CO₂ Emissions", icon: Wind },
+    { value: "250", label: "KM Range", icon: Zap },
+    { value: "1.5min", label: "Refuel Time", icon: Droplets },
+    { value: "15kW", label: "Peak Power", icon: Cpu }
+  ];
+
+  const HydrogenBubble = ({ delay }: { delay: number }) => (
+    <motion.div
+      className="absolute w-4 h-4 bg-gradient-to-r from-primary to-accent rounded-full opacity-60"
+      style={{
+        left: `${Math.random() * 100}%`,
+      }}
+      animate={{
+        y: [-100, -800],
+        opacity: [0, 1, 0],
+        scale: [0, 1, 0]
+      }}
+      transition={{
+        duration: 4,
+        delay,
+        repeat: Infinity,
+        ease: "easeOut"
+      }}
+    />
+  );
+
   return (
-    <section id="why" className="py-20 bg-section-gradient relative overflow-hidden">
+    <section id="why" className="min-h-screen bg-background relative overflow-hidden" ref={sectionRef}>
       {/* Animated Background */}
-      <div className="absolute inset-0 opacity-20">
+      <div className="absolute inset-0">
+        {/* Grid Pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(var(--primary),0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(var(--primary),0.1)_1px,transparent_1px)] bg-[size:50px_50px]" />
+
+        {/* Floating Energy Particles */}
+        {Array.from({ length: 8 }).map((_, i) => (
+          <HydrogenBubble key={i} delay={i * 0.5} />
+        ))}
+
+        {/* Glowing Orbs */}
         <motion.div
-          className="absolute top-20 right-10 w-80 h-80 bg-gradient-to-r from-red-400/20 to-pink-400/20 rounded-full blur-3xl"
+          className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-primary/10 to-accent/10 rounded-full blur-3xl"
           animate={{
-            x: [0, -100, 0],
-            y: [0, 50, 0],
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.6, 0.3],
           }}
           transition={{
-            duration: 22,
+            duration: 8,
             repeat: Infinity,
-            ease: "linear",
+            ease: "easeInOut",
           }}
         />
         <motion.div
-          className="absolute bottom-20 left-10 w-96 h-96 bg-gradient-to-r from-green-400/20 to-emerald-400/20 rounded-full blur-3xl"
+          className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-r from-accent/10 to-primary/10 rounded-full blur-3xl"
           animate={{
-            x: [0, 80, 0],
-            y: [0, -60, 0],
+            scale: [1.2, 1, 1.2],
+            opacity: [0.2, 0.5, 0.2],
           }}
           transition={{
-            duration: 18,
+            duration: 6,
             repeat: Infinity,
-            ease: "linear",
-            delay: 3,
+            ease: "easeInOut",
+            delay: 2,
           }}
         />
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10" ref={sectionRef}>
+      <div className="relative z-10 container mx-auto px-6 py-20">
+        {/* Header */}
         <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
+          className="text-center mb-20"
+          initial={{ opacity: 0, y: 50 }}
           animate={controls}
           variants={{
-            hidden: { opacity: 0, y: 30 },
-            visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
+            hidden: { opacity: 0, y: 50 },
+            visible: { opacity: 1, y: 0, transition: { duration: 1 } },
           }}
         >
           <motion.h2
-            className="text-5xl md:text-6xl font-bold mb-8 text-foreground"
-            whileInView={{ opacity: 1, y: 0 }}
-            initial={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-5xl lg:text-7xl font-bold mb-8"
+            initial={{ scale: 0.8 }}
+            animate={controls}
+            variants={{
+              hidden: { scale: 0.8 },
+              visible: { scale: 1, transition: { duration: 0.8, delay: 0.2 } },
+            }}
           >
-            Why{" "}
-            <motion.span
-              className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-emerald-600"
-              animate={{
-                backgroundPosition: ["0%", "100%", "0%"],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-            >
-
-            </motion.span>
-            ?
+            Why <span className="text-transparent bg-clip-text bg-gradient-primary"></span>?
           </motion.h2>
 
-          <div className="max-w-4xl mx-auto space-y-8">
-            <motion.div
-              className="relative bg-white/5 dark:bg-slate-800/20 backdrop-blur-sm p-8 rounded-3xl border border-slate-200/10 dark:border-slate-700/20"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={controls}
-              variants={{
-                hidden: { opacity: 0, scale: 0.95 },
-                visible: { opacity: 1, scale: 1, transition: { duration: 0.8, delay: 0.4 } },
-              }}
-            >
-              <motion.p
-                className="text-2xl md:text-3xl text-blue-900 font-bold leading-relaxed"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1 }}
-              >
-                "We believe LIFE is the rarest miracle - Evolution demands courage to protect it."
-              </motion.p>
+          <motion.div
+            className="relative max-w-4xl mx-auto bg-gradient-to-r from-card/50 to-card/30 backdrop-blur-xl p-8 rounded-3xl border border-primary/20"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={controls}
+            variants={{
+              hidden: { opacity: 0, scale: 0.9 },
+              visible: { opacity: 1, scale: 1, transition: { duration: 0.8, delay: 0.4 } },
+            }}
+          >
+            <p className="text-lg lg:text-2xl text-primary font-semibold mb-6 leading-relaxed">
+              We believe LIFE is the rarest miracle - Evolution demands courage to protect it.
 
-            </motion.div>
-
-            <motion.p
-              className="text-xl text-muted-foreground leading-relaxed"
-              initial={{ opacity: 0 }}
-              animate={controls}
-              variants={{
-                hidden: { opacity: 0 },
-                visible: { opacity: 1, transition: { duration: 0.8, delay: 0.6 } },
-              }}
-            >
-              At <span className="text-primary font-semibold">ATLAST</span>, we're not just building machines.
-              We are building a future where life breathes cleaner, moves smarter, and lasts longer!
-            </motion.p>
-          </div>
+            </p>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              At ATLAST, we’re not just building machines. We are building a future where life breathes cleaner, moves smarter, and lasts longer!
+            </p>
+          </motion.div>
         </motion.div>
-
-        {/* Mission Cards */}
+        
+        {/* Main Content Grid */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 text-blue-900 "
-          variants={containerVariants}
+          className="grid lg:grid-cols-2 gap-8"
+          variants={{
+            hidden: {},
+            visible: {
+              transition: {
+                staggerChildren: 0.2,
+                delayChildren: 1,
+              },
+            },
+          }}
           initial="hidden"
           animate={controls}
         >
-          {missions.map((mission, index) => {
-            const Icon = mission.icon;
+          {whyPoints.map((point, index) => {
+            const Icon = point.icon;
             return (
               <motion.div
-                key={mission.title}
-                className="group bg-white/5 dark:bg-slate-800/20 backdrop-blur-sm p-8 rounded-3xl border border-slate-200/10 dark:border-slate-700/20 shadow-xl hover:shadow-2xl transition-all duration-300 relative overflow-hidden"
-                variants={cardVariants}
-                whileHover={{
-                  y: -8,
-                  scale: 1.02,
-                  transition: { type: "spring", damping: 20, stiffness: 300 },
+                key={point.title}
+                className="group relative"
+                variants={{
+                  hidden: { opacity: 0, scale: 0.9 },
+                  visible: { opacity: 1, scale: 1, transition: { duration: 0.8 } },
                 }}
-                whileTap={{ scale: 0.98 }}
-                onMouseEnter={() => setHoveredCard(index)}
-                onMouseLeave={() => setHoveredCard(null)}
+                onMouseEnter={() => setActiveCard(index)}
+                onMouseLeave={() => setActiveCard(null)}
               >
-                {/* Card Background Gradient */}
+                {/* Glow Effect */}
                 <motion.div
-                  className={`absolute inset-0 bg-gradient-to-br ${mission.bgColor} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
-                  initial={false}
+                  className={`absolute -inset-1 bg-gradient-to-r ${point.gradient} rounded-3xl blur opacity-0 group-hover:opacity-100 transition duration-500`}
+                  animate={{
+                    opacity: activeCard === index ? 1 : 0,
+                  }}
                 />
 
-                <div className="relative z-10">
-                  <motion.div
-                    className={`w-16 h-16 bg-gradient-to-br ${mission.color} rounded-2xl flex items-center justify-center mb-6 shadow-lg`}
-                    whileHover={{
-                      scale: 1.1,
-                      rotate: [0, -5, 5, 0],
-                      transition: { duration: 0.3 },
-                    }}
-                    animate={{
-                      boxShadow: hoveredCard === index
-                        ? "0 8px 30px rgba(59, 130, 246, 0.4)"
-                        : "0 4px 20px rgba(59, 130, 246, 0.2)",
-                    }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <motion.div
-                      animate={{
-                        rotate: hoveredCard === index ? 360 : 0,
-                      }}
-                      transition={{
-                        duration: hoveredCard === index ? 2 : 0,
-                        repeat: hoveredCard === index ? Infinity : 0,
-                        ease: "linear",
-                      }}
-                    >
-                      <Icon className="w-8 h-8 text-white" />
-                    </motion.div>
-                  </motion.div>
-
-                  <h3 className="text-2xl font-bold text-foreground mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-red-600 group-hover:to-emerald-600 transition-all duration-300">
-                    {mission.title}
-                  </h3>
-
-                  <p className="text-muted-foreground leading-relaxed group-hover:text-foreground/90 transition-colors duration-300">
-                    {mission.description}
-                  </p>
-
-                  {/* Animated Bottom Border */}
-                  {/* <div className="mt-6 w-full h-0.5 bg-muted/20 rounded-full overflow-hidden">
-                    <motion.div
-                      className={`h-full bg-gradient-to-r ${mission.color} rounded-full`}
-                      initial={{ width: "0%" }}
-                      animate={{
-                        width: hoveredCard === index ? "100%" : "0%",
-                      }}
-                      transition={{ duration: 0.8, ease: "easeOut" }}
+                <div className="relative bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-xl p-8 rounded-3xl border border-border/20 h-full overflow-hidden">
+                  {/* Background Image */}
+                  <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity duration-500">
+                    <img
+                      src={point.image}
+                      alt={point.title}
+                      className="w-full h-full object-cover rounded-3xl"
                     />
-                  </div> */}
+                  </div>
+
+                  {/* Content */}
+                  <div className="relative z-10">
+                    <motion.div
+                      className="flex items-center mb-6"
+                      whileHover={{ scale: 1.05 }}
+                    >
+                      <div className="w-16 h-16 bg-gradient-primary rounded-2xl flex items-center justify-center mr-4 group-hover:animate-pulse-glow">
+                        <Icon className="w-8 h-8 text-primary-foreground" />
+                      </div>
+                      <h3 className="text-2xl font-bold text-foreground">
+                        {point.title}
+                      </h3>
+                    </motion.div>
+
+                    <p className="text-muted-foreground leading-relaxed group-hover:text-foreground/80 transition-colors duration-300">
+                      {point.description}
+                    </p>
+
+                    {/* Energy Flow Animation */}
+                    <motion.div
+                      className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent"
+                      initial={{ scaleX: 0 }}
+                      animate={{
+                        scaleX: activeCard === index ? 1 : 0,
+                      }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  </div>
                 </div>
               </motion.div>
             );
           })}
         </motion.div>
+
+        {/* Call to Action */}
+        <motion.div
+          className="text-center mt-20"
+          initial={{ opacity: 0, y: 30 }}
+          animate={controls}
+          variants={{
+            hidden: { opacity: 0, y: 30 },
+            visible: { opacity: 1, y: 0, transition: { duration: 0.8, delay: 1.4 } },
+          }}
+        >
+
+        </motion.div>
       </div>
     </section>
   );
 };
+
 export default WhySection;
