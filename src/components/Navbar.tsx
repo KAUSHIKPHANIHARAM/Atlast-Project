@@ -9,6 +9,7 @@ import { Moon, Sun } from "lucide-react";
 import clsx from "clsx";
 import GlobalAnimatedBackground from "./GlobalAnimatedBackground";
 import { useTheme } from "next-themes";
+import ThemeSwitch from "./ThemeSwitch";
 
 const Navbar = () => {
     const { theme, setTheme } = useTheme();
@@ -114,55 +115,13 @@ const Navbar = () => {
                         </Link>
                     ))}
 
-                    <div className="flex space-x-2">
-                        <button
-                            onClick={() => setTheme("light")}
-                            className={clsx(
-                                "p-2 rounded-md border transition-colors",
-                                theme === "light" ? "bg-blue-500 text-white" : "hover:bg-gray-200"
-                            )}
-                            aria-label="Light Mode"
-                        >
-                            <Sun className="w-5 h-5" />
-                        </button>
-                        <button
-                            onClick={() => setTheme("dark")}
-                            className={clsx(
-                                "p-2 rounded-md border transition-colors",
-                                theme === "dark" ? "bg-blue-500 text-white" : "hover:bg-gray-700"
-                            )}
-                            aria-label="Dark Mode"
-                        >
-                            <Moon className="w-5 h-5" />
-                        </button>
-                    </div>
+                    <ThemeSwitch></ThemeSwitch>
 
                 </div>
 
                 {/* Mobile Menu Button & Theme Toggle */}
                 <div className="lg:hidden flex items-center space-x-2 sm:space-x-3">
-                    <div className="flex space-x-2">
-                        <button
-                            onClick={() => setTheme("light")}
-                            className={clsx(
-                                "p-2 rounded-md border transition-colors",
-                                theme === "light" ? "bg-blue-500 text-white" : "hover:bg-gray-200"
-                            )}
-                            aria-label="Light Mode"
-                        >
-                            <Sun className="w-5 h-5" />
-                        </button>
-                        <button
-                            onClick={() => setTheme("dark")}
-                            className={clsx(
-                                "p-2 rounded-md border transition-colors",
-                                theme === "dark" ? "bg-blue-500 text-white" : "hover:bg-gray-700"
-                            )}
-                            aria-label="Dark Mode"
-                        >
-                            <Moon className="w-5 h-5" />
-                        </button>
-                    </div>
+                    <ThemeSwitch></ThemeSwitch>
 
                     <button
                         onClick={toggleMenu}

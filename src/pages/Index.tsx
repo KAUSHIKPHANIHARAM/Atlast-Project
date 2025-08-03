@@ -22,7 +22,7 @@ const Index = () => {
 
       {/* <WhatSection /> */}
 
-      <WhatSection_1 />
+      <WhatSection_1 /> 
 
       <Spotlight></Spotlight>
 
