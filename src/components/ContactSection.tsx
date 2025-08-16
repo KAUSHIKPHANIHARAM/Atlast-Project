@@ -135,6 +135,7 @@ const ContactSection = () => {
                   placeholder="Enter your name"
                   className="bg-muted border-border focus:border-primary transition-colors"
                   value={formData.name}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -146,6 +147,8 @@ const ContactSection = () => {
                   placeholder="example@gmail.com"
                   type="email"
                   className="bg-muted border-border focus:border-primary transition-colors"
+                  value={formData.email}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -158,6 +161,8 @@ const ContactSection = () => {
                   placeholder="Type your message here"
                   rows={4}
                   className="bg-muted border-border focus:border-primary transition-colors resize-none"
+                  value={formData.message}  
+                  onChange={handleChange}  
                 />
               </div>
 
