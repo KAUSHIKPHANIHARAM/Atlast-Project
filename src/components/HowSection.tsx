@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Atom, Lightbulb, Rocket } from "lucide-react";
 import { motion, useAnimation, useInView } from "framer-motion";
-import GlobalAnimatedBackground from "./GlobalAnimatedBackground";
 
 const HowSection = () => {
   const sectionRef = useRef(null);
@@ -21,61 +20,17 @@ const HowSection = () => {
   const containerVariants = {
     hidden: {},
     visible: {
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.1,
-      },
+      transition: { staggerChildren: 0.2, delayChildren: 0.1 },
     },
   };
 
   const cardVariants = {
-    hidden: {
-      opacity: 0,
-      y: 60,
-      scale: 0.9,
-    },
+    hidden: { opacity: 0, y: 60, scale: 0.9 },
     visible: {
       opacity: 1,
       y: 0,
       scale: 1,
-      transition: {
-        type: "spring" as const,
-        damping: 20,
-        stiffness: 100,
-        duration: 0.8,
-      },
-    },
-  };
-
-  const lineVariants = {
-    hidden: {
-      pathLength: 0,
-      opacity: 0,
-    },
-    visible: {
-      pathLength: 1,
-      opacity: 1,
-      transition: {
-        pathLength: { duration: 1.5 },
-        opacity: { duration: 0.5 },
-      },
-    },
-  };
-
-  const centerPointVariants = {
-    hidden: {
-      scale: 0,
-      opacity: 0,
-    },
-    visible: {
-      scale: 1,
-      opacity: 1,
-      transition: {
-        type: "spring" as const,
-        damping: 15,
-        stiffness: 200,
-        delay: 1,
-      },
+      transition: { type: "spring" as const, damping: 20, stiffness: 100, duration: 0.8 },
     },
   };
 
@@ -87,16 +42,14 @@ const HowSection = () => {
       description: "Net-zero emissions. Infinite possibilities",
       badge: "Zero Carbon Footprint",
       color: "from-emerald-500 to-teal-600",
-      delay: 0,
     },
     {
       icon: Lightbulb,
-      title: " Disruptive Engineering",
+      title: "Disruptive Engineering",
       highlight: "Radical & Frugal Thinking",
       description: "Fueling tomorrow with hydrogen technology",
-      badge: "Bio-inspired design",
+      badge: "Bio-inspired design",
       color: "from-blue-500 to-indigo-600",
-      delay: 0.2,
     },
     {
       icon: Rocket,
@@ -105,271 +58,151 @@ const HowSection = () => {
       description: "Fearless thinking & Fueled by purpose",
       badge: "Purpose-Driven Innovation",
       color: "from-purple-500 to-pink-600",
-      delay: 0.4,
     },
   ];
+  const HydrogenMolecule = ({ delay, x, y }: { delay: number; x: string; y: string }) => (
+    <motion.div
+      className="absolute w-3 h-3"
+      style={{ left: x, top: y }}
+      initial={{ scale: 0, opacity: 0 }}
+      animate={{
+        scale: [0, 1, 0],
+        opacity: [0, 0.6, 0],
+        y: [0, -50, -100]
+      }}
+      transition={{
+        duration: 4,
+        delay,
+        repeat: Infinity,
+        ease: "easeOut"
+      }}
+    >
+      <div className="w-full h-full bg-gradient-to-r from-primary to-accent rounded-full blur-sm" />
+      <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-primary to-accent rounded-full animate-pulse" />
+    </motion.div>
+  );
+
 
   return (
     <section id="how" className="py-20 bg-section-gradient relative overflow-hidden">
-      {/* Animated Background */}
-      <div className="absolute inset-0 opacity-30">
-        <motion.div
-          className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-full blur-3xl"
-          animate={{
-            x: [0, 100, 0],
-            y: [0, -50, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-        <motion.div
-          className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-r from-emerald-400/20 to-teal-400/20 rounded-full blur-3xl"
-          animate={{
-            x: [0, -80, 0],
-            y: [0, 60, 0],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "linear",
-            delay: 5,
-          }}
-        />
+      {/* Reusable Animated Background */}
+      <div className="absolute top-0 left-0 w-full h-full opacity-10">
+        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="circuit" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+              <path d="M20 20L80 20L80 80L20 80Z" fill="none" stroke="hsl(var(--primary))" strokeWidth="1" opacity="0.3" />
+              <circle cx="20" cy="20" r="2" fill="hsl(var(--accent))" opacity="0.5" />
+              <circle cx="80" cy="80" r="2" fill="hsl(var(--primary))" opacity="0.5" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#circuit)" />
+        </svg>
       </div>
-      
 
+      {/* Section Content */}
       <div className="max-w-6xl mx-auto px-6 relative z-10" ref={sectionRef}>
         <motion.div
-          className="text-center mb-6"
+          className="text-center mb-10"
           initial={{ opacity: 0, y: 30 }}
           animate={controls}
-          variants={{
-            hidden: { opacity: 0, y: 30 },
-            visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
-          }}
+          variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } }}
         >
-          <motion.h2
-            className="text-5xl md:text-6xl font-bold mb-8 text-foreground"
-            whileInView={{ opacity: 1, y: 0 }}
-            initial={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
+          <h2 className="text-4xl md:text-6xl font-bold mb-6 text-foreground">
             How We{" "}
             <motion.span
               className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600"
-              animate={{
-                backgroundPosition: ["0%", "100%", "0%"],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "linear",
-              }}
+              animate={{ backgroundPosition: ["0%", "100%", "0%"] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
             >
               Innovate
             </motion.span>
-          </motion.h2>
-          <motion.p
-            className="text-xl text-muted-foreground max-w-3xl mx-auto"
-            initial={{ opacity: 0 }}
-            animate={controls}
-            variants={{
-              hidden: { opacity: 0 },
-              visible: { opacity: 1, transition: { duration: 0.8, delay: 0.4 } },
-            }}
-          >
+          </h2>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
             Our three core pillars drive revolutionary change in sustainable mobility
-          </motion.p>
+          </p>
         </motion.div>
 
-        {/* Connected Pillars with Enhanced Animation */}
-        <div className="relative">
-          {/* SVG Connection Lines */}
-          <div className="hidden lg:block absolute inset-0 pointer-events-none z-0">
-            <svg className="w-full h-full" viewBox="0 0 800 400">
-              <motion.path
-                d="M200 150 L400 150"
-                stroke="url(#gradient1)"
-                strokeWidth="3"
-                fill="none"
-                strokeDasharray="8,4"
-                initial="hidden"
-                animate={lineControls}
-                variants={lineVariants}
-              />
-              <motion.path
-                d="M600 150 L400 150"
-                stroke="url(#gradient1)"
-                strokeWidth="3"
-                fill="none"
-                strokeDasharray="8,4"
-                initial="hidden"
-                animate={lineControls}
-                variants={lineVariants}
-              />
-              <motion.path
-                d="M300 250 L400 150"
-                stroke="url(#gradient2)"
-                strokeWidth="3"
-                fill="none"
-                strokeDasharray="8,4"
-                initial="hidden"
-                animate={lineControls}
-                variants={lineVariants}
-              />
-              <motion.path
-                d="M500 250 L400 150"
-                stroke="url(#gradient2)"
-                strokeWidth="3"
-                fill="none"
-                strokeDasharray="8,4"
-                initial="hidden"
-                animate={lineControls}
-                variants={lineVariants}
-              />
-
-              <defs>
-                <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.6" />
-                  <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0.6" />
-                </linearGradient>
-                <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#10b981" stopOpacity="0.6" />
-                  <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.6" />
-                </linearGradient>
-              </defs>
-            </svg>
-
-            {/* Enhanced Central Connection Point */}
-            <motion.div
-              className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-              initial="hidden"
-              animate={centerControls}
-              variants={centerPointVariants}
-            >
+        {/* Cards */}
+        <motion.div
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10"
+          variants={containerVariants}
+          initial="hidden"
+          animate={controls}
+        >
+          {pillars.map((pillar) => {
+            const Icon = pillar.icon;
+            return (
               <motion.div
-                className="w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full relative"
-                animate={{
-                  scale: [1, 1.2, 1],
-                  rotate: [0, 360],
-                }}
-                transition={{
-                  scale: { duration: 2, repeat: Infinity, ease: "easeInOut" },
-                  rotate: { duration: 8, repeat: Infinity, ease: "linear" },
-                }}
+                key={pillar.title}
+                className="group bg-white/5 dark:bg-slate-800/20 backdrop-blur-md p-6 md:p-8 rounded-2xl border border-slate-200/10 dark:border-slate-700/20 shadow-lg hover:shadow-2xl transition-all duration-500 relative overflow-hidden"
+                variants={cardVariants}
+                whileHover={{ y: -8, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
+                {/* Hover gradient */}
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"
-                  animate={{
-                    scale: [1, 2, 1],
-                    opacity: [1, 0, 1],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeOut",
-                  }}
+                  className={`absolute inset-0 bg-gradient-to-br ${pillar.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
+                  initial={false}
                 />
-              </motion.div>
-            </motion.div>
-          </div>
 
-          <motion.div
-            className="grid lg:grid-cols-3 gap-8 relative z-10"
-            variants={containerVariants}
-            initial="hidden"
-            animate={controls}
-          >
-            {pillars.map((pillar, index) => {
-              const Icon = pillar.icon;
-              return (
-                <motion.div
-                  key={pillar.title}
-                  className="group bg-white/5 dark:bg-slate-800/20 backdrop-blur-sm p-8 rounded-3xl border border-slate-200/10 dark:border-slate-700/20 shadow-xl hover:shadow-2xl transition-all duration-500 relative overflow-hidden"
-                  variants={cardVariants}
-                  whileHover={{
-                    y: -8,
-                    scale: 1.02,
-                    transition: { type: "spring", damping: 20, stiffness: 300 },
-                  }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  {/* Card Background Gradient */}
-                  <motion.div
-                    className={`absolute inset-0 bg-gradient-to-br ${pillar.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
-                    initial={false}
-                  />
-
-                  <div className="relative z-10">
-                    <div className="mb-6">
-                      <motion.div
-                        className={`w-16 h-16 bg-gradient-to-br ${pillar.color} rounded-2xl flex items-center justify-center mb-4 shadow-lg`}
-                        whileHover={{
-                          scale: 1.1,
-                          rotate: [0, -5, 5, 0],
-                          transition: { duration: 0.3 },
-                        }}
-                        animate={{
-                          boxShadow: [
-                            "0 4px 20px rgba(59, 130, 246, 0.3)",
-                            "0 8px 30px rgba(139, 92, 246, 0.4)",
-                            "0 4px 20px rgba(59, 130, 246, 0.3)",
-                          ],
-                        }}
-                        transition={{
-                          boxShadow: { duration: 3, repeat: Infinity, ease: "easeInOut" },
-                        }}
-                      >
-                        <motion.div
-                          animate={{ rotate: 360 }}
-                          transition={{
-                            duration: 10,
-                            repeat: Infinity,
-                            ease: "linear",
-                          }}
-                        >
-                          <Icon className="w-8 h-8 text-white" />
-                        </motion.div>
-                      </motion.div>
-                      <h3 className="text-2xl font-bold text-foreground mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 transition-all duration-300">
-                        {pillar.title}
-                      </h3>
-                    </div>
-
-                    <div className="space-y-4">
-                      <motion.p
-                        className={`font-semibold text-lg text-transparent bg-clip-text bg-gradient-to-r ${pillar.color}`}
-                        whileHover={{ scale: 1.02 }}
-                        transition={{ type: "spring", damping: 20, stiffness: 300 }}
-                      >
-                        {pillar.highlight}
-                      </motion.p>
-                      <p className="text-muted-foreground leading-relaxed">
-                        {pillar.description}
-                      </p>
-                      <motion.div
-                        className={`inline-block px-3 py-1 rounded-full text-sm bg-gradient-to-r ${pillar.color} text-white shadow-sm`}
-                        whileHover={{
-                          scale: 1.05,
-                          boxShadow: "0 4px 15px rgba(0,0,0,0.2)",
-                        }}
-                        transition={{ type: "spring", damping: 20, stiffness: 300 }}
-                      >
-                        {pillar.badge}
-                      </motion.div>
-                    </div>
+                <div className="relative z-10">
+                  <div className="mb-6 flex flex-col items-center md:items-start text-center md:text-left">
+                    <motion.div
+                      className={`w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br ${pillar.color} rounded-xl flex items-center justify-center mb-4 shadow-md`}
+                      whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0] }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <Icon className="w-7 h-7 md:w-8 md:h-8 text-white" />
+                    </motion.div>
+                    <h3 className="text-xl md:text-2xl font-bold text-foreground group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 transition-all duration-300">
+                      {pillar.title}
+                    </h3>
                   </div>
-                </motion.div>
-              );
-            })}
-          </motion.div>
-        </div>
-      </div>
 
+                  <div className="space-y-3">
+                    <p className={`font-semibold text-base md:text-lg text-transparent bg-clip-text bg-gradient-to-r ${pillar.color}`}>
+                      {pillar.highlight}
+                    </p>
+                    <p className="text-sm md:text-base text-muted-foreground">{pillar.description}</p>
+                    <motion.div
+                      className={`inline-block px-3 py-1 rounded-full text-xs md:text-sm bg-gradient-to-r ${pillar.color} text-white shadow-sm`}
+                      whileHover={{ scale: 1.05 }}
+                    >
+                      {pillar.badge}
+                    </motion.div>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </motion.div>
+      </div>
+      <motion.div
+        className="absolute right-0 top-1/2 transform -translate-y-1/2 w-32 h-64 overflow-hidden pointer-events-none"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.3 }}
+        transition={{ delay: 2, duration: 1 }}
+      >
+        {Array.from({ length: 6 }).map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-16 h-0.5 bg-gradient-to-r from-transparent to-primary"
+            style={{ top: `${i * 40 + 20}px` }}
+            animate={{
+              x: [-100, 100],
+              opacity: [0, 1, 0]
+            }}
+            transition={{
+              duration: 1.5,
+              delay: i * 0.2 + 2.5,
+              repeat: Infinity,
+              repeatDelay: 3
+            }}
+          />
+        ))}
+      </motion.div>
     </section>
   );
 };
+
 export default HowSection;

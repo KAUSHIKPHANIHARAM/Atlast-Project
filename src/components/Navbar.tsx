@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link as ScrollLink } from "react-scroll";
 import { Menu, X } from "lucide-react";
-import atlastLogo from "../assets/atlast logo (png) (1).png"
+import atlastLogo from "../assets/atlast logo (png) (1).png";
 import ThemeSwitch from "./ThemeSwitch";
 import clsx from "clsx";
 import { useNavigate } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 import { useTheme } from "next-themes";
 
 const Navbar = () => {
@@ -16,20 +16,20 @@ const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const navItems = [
-        { to: "product", label: "Product", type: "scroll" },
-        { path: "/about", label: "About", type: "route" },
-        { to: "spotlight", label: "Spotlight", type: "scroll" },
-        { to: "how", label: "How", type: "scroll" },
-        { to: "contact", label: "Let's Connect", type: "scroll" },
+        { to: "/#product", label: "Product" },
+        { path: "/about", label: "About" },
+        { to: "/#spotlight", label: "Spotlight" },
+        { to: "/#how", label: "How" },
+        { to: "/#contact", label: "Let's Connect" },
     ];
 
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
             if (currentScrollY > lastScrollY && currentScrollY > 100) {
-                setIsVisible(false); // hide navbar when scrolling down past 100px
+                setIsVisible(false);
             } else {
-                setIsVisible(true); // show navbar when scrolling up
+                setIsVisible(true);
             }
             setLastScrollY(currentScrollY);
         };
@@ -40,11 +40,18 @@ const Navbar = () => {
 
     const toggleMenu = () => setIsMenuOpen((prev) => !prev);
 
-    const handleNavItemClick = (item: typeof navItems[0]) => {
-        if (item.type === "route" && item.path) {
-            navigate(item.path);
+    const handleNavItemClick = (path?: string) => {
+        if (path) {
+            navigate(path);
+            setIsMenuOpen(false);
         }
-        setIsMenuOpen(false);
+    };
+
+    // custom scroll offset for fixed navbar
+    const scrollWithOffset = (el: HTMLElement) => {
+        const yOffset = -100; // adjust to navbar height
+        const y = el.getBoundingClientRect().top + window.scrollY + yOffset;
+        window.scrollTo({ top: y, behavior: "smooth" });
     };
 
     return (
@@ -58,12 +65,11 @@ const Navbar = () => {
             <div className="flex items-center justify-between w-full">
                 {/* Logo + Brand */}
                 <div className="flex items-center space-x-2 sm:space-x-3 cursor-pointer select-none">
-                    <ScrollLink
-                        to="hero"
-                        smooth={true}
-                        duration={500}
+                    <HashLink
+                        smooth
+                        to="/#hero"
+                        scroll={scrollWithOffset}
                         className="flex items-center space-x-2 sm:space-x-3 hover:scale-105 transition-transform"
-                        tabIndex={0}
                         aria-label="Scroll to home"
                     >
                         <img
@@ -75,7 +81,7 @@ const Navbar = () => {
                         <span className="font-lovelo text-lg sm:text-xl font-bold text-blue-500 tracking-wide select-none">
                             ATLAST
                         </span>
-                    </ScrollLink>
+                    </HashLink>
                 </div>
 
                 {/* Desktop navigation */}
@@ -83,12 +89,13 @@ const Navbar = () => {
                     {navItems.map((item) => {
                         const isConnect = item.label === "Let's Connect";
 
-                        if (item.type === "route" && item.path) {
+                        if (item.path) {
+                            // Normal route
                             return (
                                 <button
                                     key={item.label}
                                     type="button"
-                                    onClick={() => handleNavItemClick(item)}
+                                    onClick={() => handleNavItemClick(item.path)}
                                     className={clsx(
                                         "px-3 py-1 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1",
                                         isConnect
@@ -102,29 +109,27 @@ const Navbar = () => {
                         }
 
                         return (
-                            <ScrollLink
+                            <HashLink
                                 key={item.label}
+                                smooth
                                 to={item.to}
-                                smooth={true}
-                                duration={500}
-                                onClick={() => setIsMenuOpen(false)}
+                                scroll={scrollWithOffset}
                                 className={clsx(
                                     "cursor-pointer px-3 py-1 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1",
                                     isConnect
                                         ? "bg-blue-500 text-white hover:bg-blue-600 focus:ring-blue-500"
                                         : "text-blue-400 hover:text-blue-600 focus:ring-blue-400"
                                 )}
-                                tabIndex={0}
                             >
                                 {item.label}
-                            </ScrollLink>
+                            </HashLink>
                         );
                     })}
 
                     <ThemeSwitch />
                 </div>
 
-                {/* Mobile menu toggle + ThemeSwitch */}
+                {/* Mobile menu toggle */}
                 <div className="lg:hidden flex items-center space-x-4">
                     <ThemeSwitch />
                     <button
@@ -145,14 +150,14 @@ const Navbar = () => {
                         {navItems.map((item) => {
                             const isConnect = item.label === "Let's Connect";
 
-                            if (item.type === "route" && item.path) {
+                            if (item.path) {
                                 return (
                                     <li key={item.label}>
                                         <button
                                             type="button"
-                                            onClick={() => handleNavItemClick(item)}
+                                            onClick={() => handleNavItemClick(item.path)}
                                             className={clsx(
-                                                "block w-full text-left px-3 py-2 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1",
+                                                "inline-block px-4 py-2 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1",
                                                 isConnect
                                                     ? "bg-blue-500 text-white hover:bg-blue-600 focus:ring-blue-500"
                                                     : "text-blue-400 hover:text-blue-600 focus:ring-blue-400"
@@ -166,24 +171,23 @@ const Navbar = () => {
 
                             return (
                                 <li key={item.label}>
-                                    <ScrollLink
+                                    <HashLink
+                                        smooth
                                         to={item.to}
-                                        smooth={true}
-                                        duration={500}
+                                        scroll={scrollWithOffset}
                                         onClick={() => setIsMenuOpen(false)}
                                         className={clsx(
-                                            "block cursor-pointer px-3 py-2 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1",
+                                            "inline-block px-4 py-2 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1",
                                             isConnect
                                                 ? "bg-blue-500 text-white hover:bg-blue-600 focus:ring-blue-500"
                                                 : "text-blue-400 hover:text-blue-600 focus:ring-blue-400"
                                         )}
                                     >
                                         {item.label}
-                                    </ScrollLink>
+                                    </HashLink>
                                 </li>
                             );
                         })}
-
                     </ul>
                 </div>
             )}
@@ -192,3 +196,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

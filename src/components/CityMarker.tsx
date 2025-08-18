@@ -1,4 +1,3 @@
-// components/CityMarker.tsx
 import { Marker, Tooltip, useMap } from "react-leaflet";
 import L from "leaflet";
 import hyderabadImg from "../assets/hyderabadImg.jpeg";
@@ -26,7 +25,6 @@ const locations = [
     { name: "New Delhi", lat: 28.6139, lng: 77.2090, image: delhiImg },
 ];
 
-
 export default function CityMarker({ loc }: { loc: any }) {
     const map = useMap();
 
@@ -34,11 +32,15 @@ export default function CityMarker({ loc }: { loc: any }) {
         map.setView([loc.lat, loc.lng], 10); // Zoom into city
     };
 
+    //smart tooltip direction (no deletion of old code)
+    const direction = loc.lat > 23 ? "bottom" : "top";
+    const offset: [number, number] = direction === "top" ? [0, -55] : [0, 40];
+
     return (
         <Marker position={[loc.lat, loc.lng]} icon={customIcon} eventHandlers={{ click: handleClick }}>
             <Tooltip
-                direction="top"
-                offset={[0, -55]}
+                direction={direction}   // 🔹 changed here
+                offset={offset}         // 🔹 changed here
                 opacity={1}
                 interactive={false}
                 sticky={true}
@@ -49,7 +51,7 @@ export default function CityMarker({ loc }: { loc: any }) {
                         src={loc.image}
                         alt={loc.name}
                         loading="lazy"
-                        className="w-[60vw] max-w-xs sm:max-w-sm md:max-w-md h-[200px] md:h-[200px] object-cover rounded-2xl border-2 border-white shadow-2xl"
+                        className="w-[35vw] max-w-xs sm:max-w-sm md:max-w-md h-[200px] md:h-[200px] object-cover rounded-2xl border-2 border-white shadow-2xl"
                         style={{ pointerEvents: "none", display: "block", zIndex: 9999 }}
                     />
                     <div className="bg-black/80 dark:bg-white/80 text-white dark:text-black text-base font-bold px-4 py-1 rounded mt-2">
