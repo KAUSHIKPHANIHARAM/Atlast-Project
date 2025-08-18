@@ -1,154 +1,109 @@
+import { useState } from "react";
+import { motion } from 'framer-motion';
+import { 
+  Bike, 
+  MapPin,
+  TrendingUp,
+  Award
+} from 'lucide-react';
 import Reveal from "./Reveal";
-import SectionHeader from "./SectionHeader";
-import { FaRocket, FaStar, FaCheckCircle } from "react-icons/fa"; // FontAwesome icons for visual cues
 
-const timeline = [
+const milestones = [
     {
-        year: "2022",
-        title: "The Birth of a Vision",
-        items: [
-            {
-                icon: <FaRocket className="text-[#00B4D8]" />,
-                text: (
-                    <span>
-                        <strong>ATLAST Takes Off: </strong>
-                        What started as an idea transformed into reality in January, fueled by a passion to revolutionize the future of hydrogen-fueled vehicles.
-                    </span>
-                ),
-            },
-            {
-                icon: <FaStar className="text-[#0077B6]" />,
-                text: (
-                    <span>
-                        <strong>Big Boots–In: </strong>
-                        Our ambition became reality as a 6.5k pilot project, and our vision began turning dreams into electrifying results.
-                    </span>
-                ),
-            },
-            {
-                icon: <FaCheckCircle className="text-[#023E8A]" />,
-                text: (
-                    <span>
-                        <strong>First Win: </strong>
-                        Our team stepped into the spotlight at IITH, where we secured runner-up at the IIM-D Fab Pitching Challenge.
-                    </span>
-                ),
-            },
-            {
-                icon: <FaStar className="text-[#03045E]" />,
-                text: (
-                    <span>
-                        <strong>A Home for Innovation: </strong>
-                        By September, ATLAST found its first incubator at IITH, setting the stage for bigger breakthroughs.
-                    </span>
-                ),
-            },
-        ],
+      year: "2024",
+      title: "Founded in Hyderabad",
+      description: "Started our journey to revolutionize sustainable transportation",
+      icon: MapPin
     },
     {
-        year: "2023",
-        title: "Laying the Foundation for Disruption",
-        items: [
-            {
-                icon: <FaCheckCircle className="text-[#00B4D8]" />,
-                text: (
-                    <span>
-                        <strong>Design Patent Secured: </strong>
-                        January brought a major milestone as we received our design patent, validating our innovation. We also became part of the prestigious IICBGD BIRAC2023 cohort.
-                    </span>
-                ),
-            },
-            {
-                icon: <FaRocket className="text-[#0077B6]" />,
-                text: (
-                    <span>
-                        <strong>Prototype Unveiled: </strong>
-                        In May, we launched our first prototype, an achievement driven by our team: Charles (Director, R&D), alongside our makers and engineers.
-                    </span>
-                ),
-            },
-            {
-                icon: <FaStar className="text-[#023E8A]" />,
-                text: (
-                    <span>
-                        <strong>Strengthening Our Roots: </strong>
-                        August marked major site purchases at IIT Foundation, adding new skills to ATLAST’s growing team.
-                    </span>
-                ),
-            },
-            {
-                icon: <FaCheckCircle className="text-[#03045E]" />,
-                text: (
-                    <span>
-                        <strong>New Fuel for Growth: </strong>
-                        October brought another milestone as we secured a UTI grant from 50k (MINT grant), further powering our vision.
-                    </span>
-                ),
-            },
-        ],
+      year: "2024",
+      title: "First Prototype",
+      description: "Completed our breakthrough hydrogen fuel cell bike prototype",
+      icon: Bike
     },
     {
-        year: "2024",
-        title: "The Year of Recognition",
-        items: [
-            {
-                icon: <FaRocket className="text-[#00B4D8]" />,
-                text: (
-                    <span>
-                        <strong>Stepping into the Big League: </strong>
-                        ATLAST made its mark at the Goa Road Nationals in February.
-                    </span>
-                ),
-            },
-            {
-                icon: <FaStar className="text-[#0077B6]" />,
-                text: (
-                    <span>
-                        <strong>National Spotlight: </strong>
-                        Breaking new boundaries, ATLAST bagged India’s top E-OCAI award in finals, propelling our potential on a national stage.
-                    </span>
-                ),
-            },
-            {
-                icon: <FaCheckCircle className="text-[#023E8A]" />,
-                text: (
-                    <span>
-                        <strong>Driving Change: </strong>
-                        In October, we prepare to go global, as ATLAST takes the first edition of HFC4, shaping the future of energy solutions.
-                    </span>
-                ),
-            },
-        ],
+      year: "2025",
+      title: "Initial Funding",
+      description: "Raised $4.8K seed funding with local incubator support",
+      icon: TrendingUp
     },
+    {
+      year: "2025",
+      title: "Technology Validation",
+      description: "Proven performance and efficiency metrics",
+      icon: Award
+    }
 ];
 
 // UI component
 export default function RoadsTravelled() {
+    const [activeTimelineItem, setActiveTimelineItem] = useState(0);
+
     return (
-        <section id="roads-travelled" className="scroll-mt-24 bg-[#020817ff] py-16"> {/* Unified background */}
-            <Reveal>
-                <SectionHeader title="Roads Travelled" />
-                <div className="mt-12 max-w-3xl mx-auto">
-                    <ol className="relative border-l-2 border-[#00B4D8] pl-8 space-y-16">
-                        {timeline.map((yearItem, idx) => (
-                            <li key={yearItem.year} className="relative">
-                                <div className="absolute -left-4 top-2 h-5 w-5 rounded-full bg-gradient-to-tr from-[#00B4D8] via-[#0077B6] to-[#03045E] border-2 border-white shadow-lg" />
-                                <h3 className="text-xl font-bold text-white mb-2">
-                                    {yearItem.year} <span className="opacity-70">—</span> <span className="text-[#00B4D8]">{yearItem.title}</span>
-                                </h3>
-                                <ul className="space-y-3 ml-2">
-                                    {yearItem.items.map((item, i) => (
-                                        <li key={i} className="flex items-start gap-3">
-                                            {item.icon}
-                                            <span className="text-white/85">{item.text}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </li>
-                        ))}
-                    </ol>
+        <section id="roads-travelled" className="scroll-mt-24 bg-[#020817ff] py-20 px-4">
+            <div className="max-w-6xl mx-auto">
+                <Reveal>
+                    <motion.div
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
+                        className="text-center mb-16"
+                    >
+                        <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 font-lovelo">
+                            Our <span className="text-green-500">Journey</span>
+                        </h2>
+                        <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+                            From vision to reality - building the future of sustainable mobility
+                        </p>
+                    </motion.div>
+                </Reveal>
+
+                <div className="relative">
+                    {/* Timeline line */}
+                    <motion.div 
+                        className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-blue-500 to-green-500 h-full"
+                        initial={{ height: 0 }}
+                        whileInView={{ height: '100%' }}
+                        transition={{ duration: 2 }}
+                    />
+
+                    {milestones.map((milestone, index) => (
+                        <motion.div
+                            key={index}
+                            className={`flex items-center justify-between mb-16 ${
+                                index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'
+                            }`}
+                            initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8, delay: index * 0.2 }}
+                            onViewportEnter={() => setActiveTimelineItem(index)}
+                        >
+                            <div className={`w-5/12 ${index % 2 === 0 ? 'text-right pr-8' : 'text-left pl-8'}`}>
+                                <div className="bg-[#1e293b] p-6 rounded-xl shadow-lg border border-slate-700">
+                                    <div className="text-blue-500 font-bold text-2xl mb-2">{milestone.year}</div>
+                                    <h3 className="text-xl font-bold text-white mb-2">{milestone.title}</h3>
+                                    <p className="text-gray-300">{milestone.description}</p>
+                                </div>
+                            </div>
+
+                            {/* Timeline dot */}
+                            <div className="relative z-10">
+                                <motion.div
+                                    className={`w-16 h-16 rounded-full border-4 border-blue-500 bg-[#1e293b] flex items-center justify-center transition-all duration-300 ${
+                                        activeTimelineItem >= index ? 'bg-blue-500' : 'bg-[#1e293b]'
+                                    }`}
+                                    animate={{ scale: activeTimelineItem >= index ? 1.1 : 1 }}
+                                    transition={{ duration: 0.3 }}
+                                >
+                                    <milestone.icon className={`w-8 h-8 ${activeTimelineItem >= index ? 'text-white' : 'text-blue-500'}`} />
+                                </motion.div>
+                            </div>
+
+                            <div className="w-5/12" />
+                        </motion.div>
+                    ))}
                 </div>
-            </Reveal>
+            </div>
         </section>
     );
 }
