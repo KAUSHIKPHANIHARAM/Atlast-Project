@@ -14,8 +14,6 @@ import img1 from "../../assets/img1.jpeg";
 type TeamMember = {
     name: string;
     role: string;
-    expertise: string;
-    description: string;
     img?: string;
     link?: string;
 };
@@ -26,43 +24,31 @@ export default function RidingCrew() {
         {
             name: "Gopichand",
             role: "Co-Founder & CEO",
-            expertise: "Sustainable Mobility Vision",
-            description: "Visionary leader with expertise in sustainable transportation and hydrogen technology. Passionate about creating a cleaner future through innovative mobility solutions.",
             link: "https://linkedin.com"
         },
         {
             name: "Kotha",
             role: "Co-Founder & CTO",
-            expertise: "Hydrogen Technology",
-            description: "Technical mastermind behind our hydrogen fuel cell systems. Expert in energy storage, power management, and advanced propulsion technologies.",
             link: "https://linkedin.com"
         },
         {
             name: "Nikhil",
             role: "Co-Founder & COO",
-            expertise: "Operations & Strategy",
-            description: "Strategic operations leader focused on scaling our hydrogen bike technology. Expertise in business development and market expansion.",
             link: "https://linkedin.com"
         },
         {
             name: "Priya",
             role: "Lead Engineer",
-            expertise: "Power Systems",
-            description: "Specialist in fuel cell optimization and battery integration. Leading the development of our hybrid power management systems.",
             link: "https://linkedin.com"
         },
         {
             name: "Arjun",
             role: "Design Director",
-            expertise: "Product Design",
-            description: "Creative force behind our bike aesthetics and user experience. Combining functionality with stunning visual design for the future of mobility.",
             link: "https://linkedin.com"
         },
         {
             name: "Kavya",
             role: "Marketing Lead",
-            expertise: "Brand Strategy",
-            description: "Building our brand presence and market positioning. Expert in digital marketing and customer engagement strategies.",
             link: "https://linkedin.com"
         }
     ];
@@ -146,11 +132,7 @@ export default function RidingCrew() {
                                     {/* Team member info */}
                                     <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                                         <h3 className="text-xl font-bold mb-1">{member.name}</h3>
-                                        <p className="text-blue-400 font-semibold mb-2">{member.role}</p>
-                                        <p className="text-sm text-gray-300 mb-2">{member.expertise}</p>
-                                        <p className="text-xs text-gray-400 line-clamp-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                            {member.description}
-                                        </p>
+                                        <p className="text-blue-400 font-semibold">{member.role}</p>
                                     </div>
 
                                     {/* Hover effect border */}
