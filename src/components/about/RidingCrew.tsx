@@ -73,10 +73,13 @@ export default function RidingCrew() {
     return (
         <section
             id="riding-crew"
-            className="scroll-mt-24 bg-[#020817ff] py-20 relative overflow-hidden"
+            className="scroll-mt-24 bg-background py-20 relative overflow-hidden"
         >
             <Reveal>
-                <SectionHeader title="Meet Our Team" />
+
+                <div className="font-lovelo">
+                    <SectionHeader title="Riding Crew" />
+                </div>
 
                 <div className="relative mt-12">
                     {/* Slider */}

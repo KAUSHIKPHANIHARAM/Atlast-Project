@@ -45,7 +45,7 @@ export default function BeyondTheGarage() {
     const currentImages = getCurrentImages();
 
     return (
-        <section id="beyond-the-garage" className="scroll-mt-24 bg-[#020817ff] py-16">
+        <section id="beyond-the-garage" className="font-lovelo scroll-mt-24 bg-background py-16">
             <Reveal>
                 <SectionHeader title="Beyond the Garage" />
                 <div className="mt-12 max-w-4xl mx-auto px-4">

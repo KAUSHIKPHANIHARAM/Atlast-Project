@@ -75,12 +75,13 @@ const Navbar = () => {
                         <img
                             src={atlastLogo}
                             alt="ATLAST Logo"
-                            className="h-8 sm:h-10 w-auto"
+                            className="h-14 sm:h-10 w-auto"
                             style={{ maxWidth: "80px" }}
                         />
-                        <span className="font-lovelo text-lg sm:text-xl font-bold text-blue-500 tracking-wide select-none">
+                        <span className="font-lovelo text-lg sm:text-xl font-bold tracking-wide select-none bg-gradient-to-r from-[#00AEEF] to-[#0056A6] bg-clip-text text-transparent">
                             ATLAST
                         </span>
+
                     </HashLink>
                 </div>
 

@@ -107,7 +107,7 @@ const HowSection = () => {
           animate={controls}
           variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } }}
         >
-          <h2 className="text-4xl md:text-6xl font-bold mb-6 text-foreground">
+          <h2 className="font-lovelo text-4xl md:text-6xl font-bold mb-6 text-foreground">
             How We{" "}
             <motion.span
               className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600"

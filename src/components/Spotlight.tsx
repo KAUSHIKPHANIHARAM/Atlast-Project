@@ -50,7 +50,7 @@ export default function Spotlight() {
         <section className="py-20 bg-section-gradient relative overflow-hidden" id="spotlight" role="region" aria-labelledby="spotlight-heading">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="text-center mb-12 sm:mb-16" >
-                    <h2 className="text-center mx-auto w-[767px] h-[72px] text-3xl sm:text-4xl md:text-5xl font-bold mb-1 bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent leading-none">
+                    <h2 className="font-lovelo text-center mx-auto w-[767px] h-[72px] text-3xl sm:text-4xl md:text-5xl font-bold mb-1 bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent leading-none">
                         Spotlight
                     </h2>
                     <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-2">

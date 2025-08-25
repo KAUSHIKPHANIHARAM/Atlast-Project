@@ -3,6 +3,7 @@ import WhySection from "@/components/WhySection";
 import HowSection from "@/components/HowSection";
 import WhatSection from "@/components/WhatSection";
 import ContactSection from "@/components/ContactSection";
+import WhatSection2 from "@/components/WhatSection2";
 import Spotlight from "@/components/Spotlight";
 import Navbar from "@/components/Navbar";
 import WhatSection_1 from "@/components/WhatSection_1";
@@ -22,7 +23,8 @@ const Index = () => {
 
       {/* <WhatSection /> */}
 
-      <WhatSection_1 /> 
+      {/* <WhatSection_1 />  */}
+      < WhatSection2 />
 
       <Spotlight></Spotlight>
 

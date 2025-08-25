@@ -57,7 +57,7 @@ const ContactSection = () => {
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Contact Information */}
           <div className="animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold mb-8 text-foreground">
+            <h2 className="font-lovelo text-4xl md:text-5xl font-bold mb-8 text-foreground">
               Let's <span className="text-primary">Connect</span>
             </h2>
 
@@ -85,7 +85,7 @@ const ContactSection = () => {
 
             {/* Social Links */}
             <div className="space-y-4">
-              <h3 className="text-xl font-semibold text-foreground">Follow Our Journey</h3>
+              <h3 className="font-lovelo text-xl font-semibold text-foreground">Follow Our Journey</h3>
               <div className="flex space-x-4">
                 <a
                   href="https://instagram.com/atlast.rev"
@@ -111,14 +111,14 @@ const ContactSection = () => {
           <div className="bg-gradient-card p-8 rounded-3xl border border-border shadow-card animate-slide-in-right text-center">
             <div className="mb-6">
               {/* <p className="text-sm text-foreground mb-1">Lets Connect</p> */}
-              <h3 className="text-5xl font-extrabold text-primary mb-2 tracking-wide">ASK</h3>
-              <p className="text-lg text-foreground">
-                <span className="text-foreground">Always</span> <span className="text-primary">
+              <h3 className="font-lovelo text-5xl font-extrabold text-primary mb-2 tracking-wide">ASK</h3>
+              <p className="font-lovelo text-lg text-foreground">
+                <span className="font-lovelo text-foreground">Always</span> <span className="text-primary">
                   <Typewriter
                     words={['Seek', 'Share']}
                     loop={true}
                     cursor
-                    cursorStyle="_"
+                    cursorStyle="|"
                     typeSpeed={150}
                     deleteSpeed={100}
                     delaySpeed={1000}
@@ -161,8 +161,8 @@ const ContactSection = () => {
                   placeholder="Type your message here"
                   rows={4}
                   className="bg-muted border-border focus:border-primary transition-colors resize-none"
-                  value={formData.message}  
-                  onChange={handleChange}  
+                  value={formData.message}
+                  onChange={handleChange}
                 />
               </div>
 
