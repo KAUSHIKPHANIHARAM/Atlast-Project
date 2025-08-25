@@ -47,7 +47,66 @@ export default function Spotlight() {
     const [hovered, setHovered] = useState(null);
 
     return (
-        <section className="py-20 bg-section-gradient relative overflow-hidden" id="spotlight" role="region" aria-labelledby="spotlight-heading">
+
+<>
+            <style>
+                {`
+                    @keyframes float {
+                        0%, 100% { transform: translateY(0px); }
+                        50% { transform: translateY(-10px); }
+                    }
+
+                    @keyframes slideIn {
+                        0% { transform: translateX(-100px); opacity: 0; }
+                        100% { transform: translateX(0px); opacity: 1; }
+                    }
+
+                    /* Carousel 3D spin */
+                    :root { --carousel-radius: 320px; }
+                    .carousel-viewport { perspective: 1400px; margin: 0 auto; background: transparent; }
+                    .carousel-ring { transform-style: preserve-3d; animation: spin 14s linear infinite; }
+                    @keyframes spin {
+                        from { transform: rotateY(0deg); }
+                        to   { transform: rotateY(360deg); }
+                    }
+
+                    .carousel-item { will-change: transform; }
+                    .carousel-item img { display:block; }
+
+                    /* Ensure logos always render with original colors and no filters */
+                    .partner-logo, .carousel-item { background: transparent !important; }
+                    .partner-logo img, .carousel-item img {
+                        filter: none !important;
+                        -webkit-filter: none !important;
+                        mix-blend-mode: normal !important;
+                        opacity: 1 !important;
+                        transition: none !important;
+                        image-rendering: auto !important;
+                        background: transparent !important;
+                        -webkit-mask-image: none !important;
+                    }
+                    /* Prevent hover, focus, dark-mode, or global utility classes from altering logos */
+                    .partner-logo:hover img, .partner-logo:focus img, .carousel-item:hover img, .carousel-item:focus img {
+                        filter: none !important;
+                        -webkit-filter: none !important;
+                        mix-blend-mode: normal !important;
+                        opacity: 1 !important;
+                    }
+
+                    /* Responsive radius tuning */
+                    @media (max-width: 1024px) {
+                        :root { --carousel-radius: 220px; }
+                        .carousel-viewport { max-width: 640px; height: 220px; }
+                    }
+                    @media (max-width: 768px) {
+                        :root { --carousel-radius: 140px; }
+                        .carousel-viewport { max-width: 360px; height: 160px; }
+                    }
+
+                    /* subtle floating on hover handled inline */
+                `}
+            </style>
+            <section className="py-20 bg-section-gradient relative overflow-hidden" id="spotlight" role="region" aria-labelledby="spotlight-heading">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="text-center mb-12 sm:mb-16" >
                     <h2 className="font-lovelo text-center mx-auto w-[767px] h-[72px] text-3xl sm:text-4xl md:text-5xl font-bold mb-1 bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent leading-none">
@@ -85,56 +144,43 @@ export default function Spotlight() {
                     </div>
                 </div>
 
-                {/* Partner Logos */}
-                <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-center mb-6 sm:mb-8 text-foreground">
-                    Collaborators
-                </h3>
-                <div className="relative overflow-hidden">
-                    {/* Gradient fade effects on sides for smooth visual transition */}
-                    <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-12 md:w-16 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none"></div>
-                    <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-12 md:w-16 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none"></div>
+                {/* Collaborators Section - 3D Rotating Carousel */}
+                <div className="mt-20 mb-12">
+                    <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-12 bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
+                        Collaborators
+                    </h3>
 
-                    {/* Scrolling Container */}
-                    <div className="flex animate-scroll">
-                        {partnerLogos.map((partner, index) => (
-                            <div key={`first-${index}`} className="flex-shrink-0 mx-2 sm:mx-3 md:mx-4">
-                                <div className="text-center hover:border-primary/30 transition-all duration-300 hover:scale-105 group min-w-[100px] sm:min-w-[120px] md:min-w-[140px]">
-                                    <div className="w-28 h-20 mx-auto mb-2 flex items-center justify-center overflow-hidden">
-                                        <img
-                                            loading="lazy"
-                                            src={partner.logo}
-                                            alt={`Partner logo: ${partner.name}`}
-                                            role="img"
-                                            aria-label={`Partner: ${partner.name}`}
-                                            className="object-contain w-full h-full"
-                                        />
-
-                                    </div>
-                                    <div className="text-xs font-medium text-muted-foreground leading-tight">{partner.name}</div>
-                                </div>
+                    <div className="relative w-full flex justify-center">
+                        {/* Carousel viewport with perspective */}
+                        <div className="carousel-viewport relative" style={{ width: '100%', maxWidth: 960, height: 260 }}>
+                            {/* rotating ring */}
+                            <div className="carousel-ring w-full h-full absolute left-0 top-0 flex items-center justify-center">
+                                {partnerLogos.map((partner, i) => {
+                                    const angle = (360 / partnerLogos.length) * i;
+                                    const radius = 320;
+                                    return (
+                                        <div
+                                            key={i}
+                                            className="carousel-item absolute left-1/2 top-1/2 transform-gpu transition-transform duration-700"
+                                            style={{
+                                                transform: `rotateY(${angle}deg) translateZ(var(--carousel-radius)) translateX(-50%) translateY(-50%)`,
+                                                animationDelay: `${i * 0.2}s`
+                                            }}
+                                        >
+                                            <div className="w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center partner-logo">
+                                                <img src={partner.logo} alt={partner.name} className="object-contain w-full h-full" loading="lazy" />
+                                            </div>
+                                        </div>
+                                    );
+                                })}
                             </div>
-                        ))}
-                        {partnerLogos.map((partner, index) => (
-                            <div key={`second-${index}`} className="flex-shrink-0 mx-2 sm:mx-3 md:mx-4">
-                                <div className="text-center hover:border-primary/30 transition-all duration-300 hover:scale-105 group min-w-[100px] sm:min-w-[120px] md:min-w-[140px]">
-                                    <div className="w-28 h-20 mx-auto mb-2 flex items-center justify-center overflow-hidden">
-                                        <img
-                                            loading="lazy"
-                                            src={partner.logo}
-                                            alt={`Partner logo: ${partner.name}`}
-                                            role="img"
-                                            aria-label={`Partner: ${partner.name}`}
-                                            className="object-contain w-full h-full"
-                                        />
 
-                                    </div>
-                                    <div className="text-xs font-medium text-muted-foreground leading-tight">{partner.name}</div>
-                                </div>
-                            </div>
-                        ))}
+                            {/* No reflection - minimal clean carousel */}
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+        </>
     );
 }

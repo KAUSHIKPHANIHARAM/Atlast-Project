@@ -53,6 +53,10 @@ const ContactSection = () => {
   };
   return (
     <section id="contact" className="py-20 bg-section-gradient">
+      <style>{`
+        /* Ensure social SVGs keep brand hover colors and turn white for contrast */
+        a[aria-label="Instagram"]:hover svg, a[aria-label="LinkedIn"]:hover svg { color: white !important; }
+      `}</style>
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Contact Information */}
@@ -89,19 +93,21 @@ const ContactSection = () => {
               <div className="flex space-x-4">
                 <a
                   href="https://instagram.com/atlast.rev"
-                  className="w-12 h-12 bg-card border border-border rounded-xl flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all duration-300 group"
+                  className="w-12 h-12 bg-card border border-border rounded-xl flex items-center justify-center transition-all duration-300 group hover:from-[#f58529] hover:via-[#dd2a7b] hover:to-[#8134af] hover:bg-gradient-to-br"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Instagram"
                 >
-                  <Instagram className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                  <Instagram className="w-6 h-6 text-foreground transition-transform group-hover:scale-110 group-hover:text-white" />
                 </a>
                 <a
                   href="https://www.linkedin.com/company/atlast-official/"
-                  className="w-12 h-12 bg-card border border-border rounded-xl flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all duration-300 group"
+                  className="w-12 h-12 bg-card border border-border rounded-xl flex items-center justify-center transition-all duration-300 group hover:bg-[#0077B5]"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="LinkedIn"
                 >
-                  <Linkedin className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                  <Linkedin className="w-6 h-6 text-foreground transition-transform group-hover:scale-110 group-hover:text-white" />
                 </a>
               </div>
             </div>
