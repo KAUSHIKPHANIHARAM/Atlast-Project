@@ -63,7 +63,7 @@ const WhySection = () => {
         >
           <h2 className="font-lovelo font-bold text-6xl lg:text-8xl mb-8 tracking-tight">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 dark:from-primary dark:via-accent dark:to-primary">
-              Why
+              Why{" "}
             </span>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600 dark:from-accent dark:to-primary">
               WE EXIST?
